@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+      <script src="script/jquery.min.js" type="text/javascript"></script>
+    <script src="script/test.js" type="text/javascript"></script>
+    <script src="script/bll/UcSupplierSalesAddItem.js" type="text/javascript"></script>
+    <script src="script/JSLINQ.js" type="text/javascript"></script>
+    <script src="script/mock.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var URL = "http://localhost:54888/WebSite1/server/sql.ashx";
+        var items = [];
+        
+
+        $(document).ready(function () {
+            $('#frm').hide();
+            setEvents();
+            $.getJSON(URL,
+            function (data) {
+            debugger
+                $('#frm').show();
+                items = data;
+                objUcSupplierSalesAddItem.SetFieldsIdForm(
+                "cboxItemCode", "cboxItemName", "cboxItemType",
+                "cboxSubItemType", "cboxSaleName",
+                "lblPriceNoVatValue", "lblPriceValue",
+                "lblDiscountValue", "lblPriceSaleNoVatValue",
+                "lblPriceSaleValue");
+
+                objUcSupplierSalesAddItem.SetData(data);
+                objUcSupplierSalesAddItem.FillAllComboBox();
+
+
+            });
+        });
+
+        function setEvents() {
+            $("#cboxItemCode ,#cboxItemName, #cboxItemType,#cboxSubItemType,#cboxSaleName").bind("change", function () {
+                var selectedValue = $(this).val();
+                var currentId = $(this)[0].id;
+                var typeCbox = currentId;
+                objUcSupplierSalesAddItem.AttachEventSelectedChange(typeCbox, currentId, selectedValue);
+
+            }); 
+
+        }
+
+    </script>
+</head>
+<body>
+<form id="frm">
+<div id="lblShow" >
+<table>
+<tr>
+<td>קוד פריט</td><td><select id="cboxItemCode"><option></option></select></td>
+</tr>
+<tr>
+<td>שם פריט</td><td><select id="cboxItemName"><option></option></select></td>
+</tr>
+<tr>
+<td>סוג פריט</td><td><select id="cboxItemType"><option></option></select></td>
+</tr>
+<tr>
+<td>תת סוג פריט</td><td><select id="cboxSubItemType"><option></option></select></td>
+</tr>
+<tr>
+<td> מבצע </td><td><select id="cboxSaleName"><option></option></select></td>
+</tr>
+<td colspan="2">
+<span id="lblPriceNoVatValue">lblPriceNoVatValue</span><br />
+<span id="lblPriceValue">lblPriceValue</span><br />
+<span id="lblDiscountValue">lblDiscountValue</span><br />
+<span id="lblPriceSaleNoVatValue">lblPriceSaleNoVatValue</span><br />
+<span id="lblPriceSaleValue">lblPriceSaleValue</span><br />
+</td>
+</table>
+</div>
+</form>
+
+</body>
+</html>

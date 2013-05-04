@@ -1,0 +1,15 @@
+﻿CACHE MANIFEST
+#Version 1
+
+CACHE:
+
+script/TestCache.js
+testCache.htm
+
+FALLBACK:
+controls/Control/sig.htm
+script/bll/OfflineHandlerSign.js
+script/dal/db.js
+script/jquery.min.js
+controls/Resources/Scripts/base64.js
+controls/Resources/Scripts/canvas2image.js

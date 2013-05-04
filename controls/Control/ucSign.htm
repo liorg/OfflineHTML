@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../script/jquery.min.js" type="text/javascript"></script>
+    <script src="../../script/dal/db.js" type="text/javascript"></script>
+    <script src="../../script/bll/OfflineHandlerSign.js" type="text/javascript"></script>
+    <script language="javascript">
+
+        $(document).ready(function () {
+            debugger;
+
+            $('#btnClose').bind("click", function () {
+                debugger;
+                var f = window.frames[0];
+                if (f.Signature.isUpdate == true) {
+                    alert("אפשר לסגור");
+                }
+                else {
+                    alert("עדיין לא הסתיים");
+                }
+            });
+            $('#btnGetPic').click(function () {
+                var missionId = $('#missionId').val();
+                var missionSoId = $('#missionSoId').val();
+                var technicianId = $('#TechnicianId').val();
+                var img = document.getElementById("signPic");
+                Signature.GetPicOffline(missionId, missionSoId, technicianId, img);
+
+            });
+            $('#btnShow').click(function () {
+                debugger;
+                var missionId = $('#missionId').val();
+                var missionSoId = $('#missionSoId').val();
+                var technicianId = $('#TechnicianId').val();
+                var status = $('#status').val();
+                if (status == 'online') {
+                    var path = "sig.htm?status='online'&missionid='" + missionId + "'&missionsoid='" + missionSoId + "'&technicianid='" + technicianId + "'";
+                    // document.getElementById('sig').src = path;
+                    window.frames[0].location.href = path;
+                }
+                else {
+                    localStorage["missionid"] = missionId;
+                    localStorage["missionsoid"] = missionSoId;
+                    localStorage["technicianid"] = technicianId;
+                    window.frames[0].location.href = "sig.htm";
+                   
+                }
+
+            });
+        });
+    </script>
+    <style type="text/css">
+        #sig
+        {
+            height: 288px;
+            width: 518px;
+        }
+        
+    </style>
+</head>
+<body>
+    <form>
+    <input type='hidden' id='sigImage' value='' />
+    missionId:<input type='text'  id='missionId' value='55' />
+   missionSoId: <input type='text' id='missionSoId' value='66' />
+   TechnicianId: <input type='text' id='TechnicianId' value='77' />
+    Status: <input type='text' id='status' value='online' />
+    <input id="btnShow" type="button" value="הצג מסך" />
+    <input id="btnClose" type="button" value="סגור" />
+    <input id="btnGetPic" type="button" value="Get Pic" />
+    <iframe id="sig" src=""></iframe>
+    <br />
+    picutre:
+    <img id="signPic" src="" alt="pic" />
+    </form>
+</body>
+</html>

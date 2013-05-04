@@ -1,0 +1,216 @@
+﻿<!DOCTYPE HTML>
+<html manifest="cache.appcache">
+<head>
+    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1' />
+    <meta http-equiv='content-type' content='charset=UTF-8' />
+    <script src="../../script/mock.js" type="text/javascript"></script>
+    <script src="../Resources/Scripts/base64.js" type="text/javascript"></script>
+    <style type='text/css'>
+        body
+        {
+            margin: 5px 5px 5px 5px;
+            padding: 0px 0px 0px 0px;
+        }
+        canvas
+        {
+            border: 1px solid #999999;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+        }
+        a
+        {
+            background-color: #CCCCCC;
+            border: 1px solid #999999;
+            color: #333333;
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+    <script src="../../script/jquery.min.js" type="text/javascript"></script>
+    <script src="../Resources/Scripts/base64.js" type="text/javascript"></script>
+    <script src="../Resources/Scripts/canvas2image.js" type="text/javascript"></script>
+    <script src="../../script/bll/OfflineHandlerSign.js" type="text/javascript"></script>
+    <script src="../../script/dal/db.js" type="text/javascript"></script>
+</head>
+<body>
+    <input type='hidden' id='sigImage' value='' />
+    <input type='hidden' id='missionId' value='55' />
+    <input type='hidden' id='missionSoId' value='66' />
+    <input type='hidden' id='TechnicianId' value='77' />
+    <script type='text/javascript'>
+        var isOnLine = true;
+
+        function getParameterByName(name) {
+            debugger;
+            if (window.location.search != "") {
+                var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+                return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+            }
+            else
+                return localStorage[name];
+        }
+        jQuery(window).load(function () {
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 10);
+        });
+        jQuery(function ($) {
+            scaleCanvas = function (oCanvas, iWidth, iHeight) {
+                if (iWidth && iHeight) {
+                    var oSaveCanvas = document.createElement('canvas');
+                    oSaveCanvas.width = iWidth;
+                    oSaveCanvas.height = iHeight;
+                    oSaveCanvas.style.width = iWidth + 'px';
+                    oSaveCanvas.style.height = iHeight + 'px';
+                    var oSaveCtx = oSaveCanvas.getContext('2d');
+                    oSaveCtx.fillStyle = 'rgb(255,255,255)';
+                    oSaveCtx.fillRect(0, 0, iWidth, iHeight);
+                    oSaveCtx.drawImage(oCanvas, 0, 0, oCanvas.width, oCanvas.height, 0, 0, iWidth, iHeight);
+                    return oSaveCanvas;
+                }
+                return oCanvas;
+            };
+            clickX = new Array();
+            clickY = new Array();
+            clickDrag = new Array();
+            var paint; function addClick(x, y, dragging) {
+                clickX.push(x);
+                clickY.push(y);
+                clickDrag.push(dragging);
+            };
+            var canvas = $('#canvas');
+            var context = canvas[0].getContext('2d');
+            context.fillStyle = 'rgb(255,255,255)';
+            context.fillRect(0, 0, 300, 300);
+            var getTouchEvent = function (event) {
+                if (window.event.targetTouches != undefined)
+                    return (window.event.targetTouches[0]);
+                else return event;
+            };
+            function redraw() {
+                context.strokeStyle = '#000';
+                context.lineJoin = 'round';
+                context.lineWidth = 2;
+                for (var i = 0; i < clickX.length; i++) {
+                    context.beginPath();
+                    if (clickDrag[i] && i) {
+                        context.moveTo(clickX[i - 1], clickY[i - 1]);
+                    } else {
+                        context.moveTo(clickX[i] - 1, clickY[i]);
+                    }
+                    context.lineTo(clickX[i], clickY[i]);
+                    context.closePath(); context.stroke();
+                }
+            };
+            var onTouchBegin = function (e) {
+                try {
+                    var offset = canvas.offset();
+                    var event = getTouchEvent(e);
+                    paint = true;
+                    addClick(event.pageX - offset.left, event.pageY - offset.top);
+                    redraw();
+                }
+                catch (e) {
+                    alert(e.description);
+                }
+            };
+            var onTouchMove = function (e) {
+                try {
+                    if (paint) {
+                        var offset = canvas.offset();
+                        var event = getTouchEvent(e);
+                        addClick(event.pageX - offset.left, event.pageY - offset.top, true); redraw();
+                    }
+                } catch (e) { alert(e.description); }
+            }; var onTouchEnd = function (e) {
+                try {
+                    paint = false;
+                }
+                catch (e) {
+                    alert(e.description);
+                }
+            };
+            var onTouchStart = function (event) {
+                try {
+                    onTouchBegin(event);
+                }
+                catch (e) {
+                    alert(e.message);
+                }
+            };
+            canvas.bind('touchend mouseup mouseleave', onTouchEnd);
+            canvas.bind('touchmove mousemove', onTouchMove);
+            canvas.bind('touchstart mousedown', function (event) {
+                onTouchStart(event);
+                return (false);
+            }
+                 );
+        });
+    </script>
+    <canvas id='canvas' width='300' height='300'></canvas>
+    <br />
+    <button id='save'>
+        שמור</button>
+    <button id='clear'>
+        נקה</button>
+    <script>
+        var ucSignature;
+        $(document).ready(function () {
+            debugger;
+            var missionid = getParameterByName('missionid');
+            var missionsoid = getParameterByName('missionsoid');
+            var technicianId = getParameterByName('technicianId');
+            var status = getParameterByName('status');
+            $('#missionId').val(missionid);
+            $('#missionSoId').val(missionsoid);
+       
+
+            $('#technicianId').val(technicianId);
+
+            $('#save').bind('click tap', newDoodle);
+            $('#clear').bind('click tap', clearCanvas);
+        }); newDoodle = function () {
+            Signature.OnLoad();
+            var oCanvas = $('#canvas').get(0);
+            var imageTag = Canvas2Image.saveAsBMP(oCanvas, true);
+            var signature = imageTag.src;
+            var missionId = $('#missionId').attr('value');
+            var TechnicianId = $('#TechnicianId').attr('value');
+            var missionSoId = $('#missionSoId').attr('value');
+            $('#sigImage').attr('value', imageTag.src);
+            $.ajax({
+                type: 'POST',
+                // url: '/Resources/SignatureService.asmx/SetMissionSignature',
+                url: '/Resources/SignatureService.asmx/SetMissionSignature',
+                data: '{missionId:\"' + missionId + '\",missionSoId:\"' + missionSoId + '\", signature:\"' + signature + '\", TechnicianId:\"' + TechnicianId + '\"}'
+                             , contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                async: false,
+                success: function 
+                             (msg) {
+                    alert('חתימה נשמרה בהצלחה');
+                    Signature.isUpdate = true;
+                }
+                             , error: function (msg) {
+                                 debugger;
+                                 alert('עובר למצב OFFLINE');
+                                 Signature.SavePicOffline(missionId, missionSoId, TechnicianId, signature);
+                             }
+            });
+        };
+        clearCanvas = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            clickX = new Array();
+            clickY = new Array();
+            clickDrag = new Array();
+            context.fillStyle = 'rgb(255,255,255)';
+            context.fillRect(0, 0, 300, 300);
+        };
+    </script>
+</body>
+</html>

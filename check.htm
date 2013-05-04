@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="script/jquery.min.js" type="text/javascript"></script>
+    <script src="script/test.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function UcMissionCloseLocals() {
+            this._bCloseStatus = "xxx";
+            this.bCloseStatus = function (v) {
+                if (v != undefined) {
+                    this._bCloseStatus = v;
+                }
+                return this._bCloseStatus;
+            }
+
+        }
+
+        var objUcMissionClose = new UcMissionCloseLocals();
+
+        alert(objUcMissionClose.bCloseStatus());
+        alert(objUcMissionClose.bCloseStatus("yyy"));
+
+
+//        $(document).ready(function () {
+//            debugger
+//            var o = new test();
+//            o.t.set(false);
+//            alert(o.t);
+
+
+//        });
+      
+    </script>
+</head>
+<body>
+    ok!!!
+</body>
+</html>

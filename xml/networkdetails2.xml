@@ -1,0 +1,115 @@
+﻿<mmis_2>
+  <cnet>2806</cnet>
+  <cnum>99944</cnum>
+  <ctype>60</ctype>
+  <ltype>51</ltype>
+  <ldesc>שרות ADSL</ldesc>
+  <multi />
+  <vc>96</vc>
+  <adsl>
+    <shelf_slot>0</shelf_slot>
+  </adsl>
+  <sequip>
+    <equip_code>563</equip_code>
+    <frame>753102</frame>
+    <tag>21</tag>
+    <equip_name>IU_ADSL72-D1 NSN NGN</equip_name>
+  </sequip>
+  <united>
+    <unit>130243</unit>
+    <equip_type>835</equip_type>
+    <cage_slot>130243</cage_slot>
+    <port>93</port>
+    <center>2806</center>
+  </united>
+  <numroutes>1</numroutes>
+  <activeroute>130243/93*30243/1093-3332*891200/332-1116*891236/1</activeroute>
+  <totalpoints>6</totalpoints>
+  <detailedroute>
+    <distribpoint>
+      <center>2806</center>
+      <frame>130243</frame>
+      <tag>93</tag>
+      <ftype>82</ftype>
+      <typedesc>MSAG</typedesc>
+    </distribpoint>
+    <distribpoint>
+      <center>2806</center>
+      <frame>30243</frame>
+      <tag>1093</tag>
+      <ftype>25</ftype>
+      <typedesc>צ.ק</typedesc>
+    </distribpoint>
+    <distribpoint>
+      <center>2806</center>
+      <frame>30243</frame>
+      <tag>3332</tag>
+      <ftype>25</ftype>
+      <typedesc>צ.ק</typedesc>
+    </distribpoint>
+    <distribpoint>
+      <center>2806</center>
+      <frame>891200</frame>
+      <tag>332</tag>
+      <ftype>11</ftype>
+      <typedesc>א.ס</typedesc>
+    </distribpoint>
+    <distribpoint>
+      <center>2806</center>
+      <frame>891200</frame>
+      <tag>1116</tag>
+      <ftype>11</ftype>
+      <typedesc>א.ס</typedesc>
+    </distribpoint>
+    <distribpoint>
+      <center>2806</center>
+      <frame>891236</frame>
+      <tag>1</tag>
+      <ftype>1</ftype>
+      <typedesc>ת.ה</typedesc>
+    </distribpoint>
+    <len>
+      <center>0</center>
+      <ru>0</ru>
+      <system>0</system>
+      <tag>0</tag>
+    </len>
+    <faddress>
+      <typedesc>MSAG</typedesc>
+      <frame>130243</frame>
+      <street>כף החיים</street>
+      <housenum>38</housenum>
+      <locationdesc>חוץ</locationdesc>
+      <city>ביתר עילית</city>
+    </faddress>
+    <faddress>
+      <typedesc>צ.ק</typedesc>
+      <frame>30243</frame>
+      <street>כף החיים</street>
+      <housenum>38</housenum>
+      <locationdesc>חוץ</locationdesc>
+      <city>ביתר עילית</city>
+    </faddress>
+    <faddress>
+      <typedesc>א.ס</typedesc>
+      <frame>891200</frame>
+      <street>כף החיים</street>
+      <housenum>8912</housenum>
+      <locationdesc>ארגז</locationdesc>
+      <placedesc>חזית</placedesc>
+      <city>ביתר עילית</city>
+    </faddress>
+    <faddress>
+      <typedesc>ת.ה</typedesc>
+      <frame>891236</frame>
+      <street>איגרות משה</street>
+      <housenum>27</housenum>
+      <locationdesc>פנימי</locationdesc>
+      <placedesc>ח.מדרג</placedesc>
+      <city>ביתר עילית</city>
+    </faddress>
+  </detailedroute>
+  <security>98</security>
+  <secdesc>ביטחוני רגיל</secdesc>
+  <lastupdate>2011-08-18</lastupdate>
+</mmis_2>

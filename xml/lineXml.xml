@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mmis_3>
+  <total>1</total>
+   <phone>
+    <p>0000000</p>
+  </phone>
+  <phone>
+    <p>88888888</p>
+  </phone>
+  <phone>
+    <x>qxxxxxxq</x>
+  </phone>
+  <zzz>
+    <p>qzzzzzzzq</p>
+  </zzz>
+  <message_set_nbr>-1</message_set_nbr>
+  <message_nbr>10</message_nbr>
+  <message_descr>הבקשה בוצעה</message_descr>
+</mmis_3>

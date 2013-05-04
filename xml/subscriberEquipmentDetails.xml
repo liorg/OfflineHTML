@@ -1,0 +1,71 @@
+﻿<mmis_26>
+  <equip>
+    <eid>200</eid>
+    <amount>1</amount>
+    <desc>קו דו-כיווני ישיר</desc>
+  </equip>
+  <equip>
+    <eid>230</eid>
+    <amount>1</amount>
+    <desc>שקע ראשון לקו ישיר</desc>
+  </equip>
+  <equip>
+    <eid>360</eid>
+    <amount>1</amount>
+    <desc>הפצה המונית SMS</desc>
+  </equip>
+  <equip>
+    <eid>609</eid>
+    <amount>1</amount>
+    <desc>שירות שיחה מזוהה</desc>
+  </equip>
+  <equip>
+    <eid>1261</eid>
+    <amount>1</amount>
+    <desc>שרות ADSL</desc>
+  </equip>
+  <equip>
+    <eid>1850</eid>
+    <amount>1</amount>
+    <desc>בזק בינ"ל-סימון שיוך למפעיל בי</desc>
+  </equip>
+  <equip>
+    <eid>2259</eid>
+    <amount>1</amount>
+    <desc>מסלול השאלת מודם</desc>
+  </equip>
+  <!-- ok-->
+  <equip>
+    <eid>2349</eid>
+    <amount>5</amount>
+    <desc>בזק מיקרופילטר משולב</desc>
+  </equip>
+  <equip>
+    <eid>5321</eid>
+    <amount>1</amount>
+    <desc>חבילת ADSL 5M</desc>
+  </equip>
+  <equip>
+    <eid>5322</eid>
+    <amount>1</amount>
+    <desc>חיוב חבילה 5M</desc>
+  </equip>
+  <equip>
+    <eid>6810</eid>
+    <amount>1</amount>
+    <desc>סימון תגמול סל 750 דקות הכל כל</desc>
+  </equip>
+  <equip>
+    <eid>8343</eid>
+    <amount>1</amount>
+    <desc>בזק-מודם ETHERNET ECI</desc>
+  </equip>
+  <equip>
+    <eid>8432</eid>
+    <amount>1</amount>
+    <desc>סימון אי זכאות לתנאי אחסון ברש</desc>
+  </equip>
+  <message_set_nbr>-1</message_set_nbr>
+  <message_nbr>0</message_nbr>
+  <message_descr>OK</message_descr>
+</mmis_26>

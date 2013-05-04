@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="script/jquery.min.js" type="text/javascript"></script>
+    <script src="script/test.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            debugger
+            $.ajax({
+                type: "GET",
+                url: "/WebSite1/xml/networkdetails3.xml",
+                // url: "/WebSite1/xml/lineXml.xml",
+                dataType: "xml",
+                cache: false,
+                success: function (xml) {
+                debugger
+                //  $.parseXML(xml)
+                    // var $xml = $(xmlDoc);
+                    var $xml = $(xml);
+                    testNetworkDetails($xml);
+                    testLineXml($xml);
+                }
+            });
+
+        });
+        function testLineXml(xml) {
+            debugger
+            var smartXmlNode = new newSmartXmlNode(xml);
+            var phones = smartXmlNode.getList("phone>p");
+            var lines = getLine(phones);
+            alert(lines);
+            debugger
+        }
+        function getLine(phones) {
+            var sbLines = new StringBuilder();
+            $(phones).each(function (index, value) {
+                var xn = this;
+                sbLines.Append(xn);
+                sbLines.Append("  ");
+            });
+            return sbLines.ToString();
+        }
+
+        function testNetworkDetails(xml) {
+            debugger
+            var smartXmlNode = new newSmartXmlNode(xml);
+            var netWorkDetails = new Object();
+            netWorkDetails.LineTypeValue = smartXmlNode.getText("ldesc");
+            netWorkDetails.ExchangeValue = smartXmlNode.getText("cnet") + " " + smartXmlNode.getText("ctype");
+            netWorkDetails.LastUpdateValue = smartXmlNode.getText("lastupdate");
+            netWorkDetails.cvlan = "CVLAN -" + ifNullReturnEmpty(smartXmlNode.getText("ctype"));
+            var detailedroute = smartXmlNode.getNode("detailedroute");
+            var sxeDetailedroute = new newSmartXmlNode(detailedroute);
+            var distribpoints = sxeDetailedroute.getDictionary("distribpoint");
+            netWorkDetails.detailedrouteNode.Routing = getRouting(distribpoints);
+            alert(netWorkDetails.detailedrouteNode.Routing);
+            var faddress = sxeDetailedroute.getDictionary("faddress");
+            netWorkDetails.detailedrouteNode.FramesAddress = getFramesAddress(faddress);
+            alert(netWorkDetails.detailedrouteNode.FramesAddress);
+
+        }
+        function getFramesAddress(faddress) {
+            var p_sbFrames = new StringBuilder();
+            $(faddress).each(function (index, value) {
+                debugger;
+                var p_sxnFaddress = this.row;
+                var tempValue;
+                tempValue = p_sxnFaddress["typedesc"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(tempValue);
+                    p_sbFrames.Append(" ");
+                }
+                tempValue = p_sxnFaddress["frame"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(tempValue);
+                    p_sbFrames.Append(" ");
+                }
+                tempValue = p_sxnFaddress["street"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(tempValue);
+                    p_sbFrames.Append(" ");
+                }
+                tempValue = p_sxnFaddress["housenum"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(tempValue);
+                    p_sbFrames.Append(" ");
+                }
+                tempValue = p_sxnFaddress["city"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(tempValue);
+                }
+                tempValue = p_sxnFaddress["placedesc"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(", ");
+                    p_sbFrames.Append(tempValue);
+                }
+                tempValue = p_sxnFaddress["locationdesc"];
+                if (isEmpty(tempValue) != null) {
+                    p_sbFrames.Append(", ");
+                    p_sbFrames.Append(tempValue);
+                }
+
+                p_sbFrames.Append(newLine());
+
+            });
+            if (p_sbFrames.Length > 2) {
+                p_sbFrames.RemoveLast(2);
+            }
+            return p_sbFrames.ToString();
+        }
+
+        function getRouting(distribpoints) {
+            var sbRouter = new StringBuilder();
+            var isFromTag = true;
+            if (distribpoints.length == 0)
+                return "";
+            var lastIterator = distribpoints.length - 1;
+            $(distribpoints).each(function (index, value) {
+                var sxeNode = this.row;
+                if (index == 0) {// first point
+                    sbRouter.Append(sxeNode["center"]);
+                    if (isEmpty(sxeNode["frame"]) != null) {
+                        sbRouter.Append(sxeNode["frame"]);
+                        sbRouter.Append('-');
+                    }
+                    sbRouter.Append(sxeNode["tag"]);
+                    sbRouter.Append(newLine());
+                }
+                // last point
+                else if (index == lastIterator) {
+                    sbRouter.Append(sxeNode["frame"]);
+                    sbRouter.Append('/');
+                    sbRouter.Append(sxeNode["tag"]);
+                    sbRouter.Append(newLine());
+                }
+                else {
+                    if (isFromTag == true) {
+                        sbRouter.Append(sxeNode["frame"]);
+                        sbRouter.Append('/');
+                        sbRouter.Append(sxeNode["tag"]);
+                    }
+                    else {
+                        if (isEmpty(sxeNode["tag"]) != null) {
+                            sbRouter.Append('-');
+                            sbRouter.Append(sxeNode["tag"]);
+                        }
+                        sbRouter.Append(newLine());
+                    }
+                    isFromTag = !isFromTag;
+                }
+            });
+            if (sbRouter.Length > 2) {
+                sbRouter.RemoveLast(2);
+            }
+            return sbRouter.ToString();
+        }
+    </script>
+</head>
+<body>
+    ok!!!
+</body>
+</html>

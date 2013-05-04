@@ -1,0 +1,11 @@
+﻿CACHE MANIFEST
+#Version 1
+
+CACHE:
+../Resources/Scripts/base64.js
+../../script/jquery.min.js
+../Resources/Scripts/canvas2image.js
+../../script/bll/OfflineHandlerSign.js
+../../script/dal/db.js
+sig.htm
+

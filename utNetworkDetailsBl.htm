@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="script/jquery.min.js" type="text/javascript"></script>
+    <script src="script/test.js" type="text/javascript"></script>
+    <script src="script/mock.js" type="text/javascript"></script>
+    <script src="script/NetworkDetailsBL.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var addreses = ['/WebSite1/xml/networkdetails3.xml', '/WebSite1/xml/lineXml.xml'];
+        var ajaxQueue = { files: [] };
+         var addreses = ['/WebSite1/xml/networkdetails3.xml', '/WebSite1/xml/lineXml.xml'];
+
+        var dicXmlParameters={};
+
+        var networkdetailsPath= "/WebSite1/xml/networkdetails3.xml";
+        var lineXmlPath="/WebSite1/xml/lineXml.xml";
+       
+        $(document).ready(function () {
+         $("#btnTest").hide();
+         $.ajax({
+                type: "GET",
+                url: networkdetailsPath,
+                dataType: "xml",
+                cache: false,
+                success: function (xml) {
+                debugger
+                    dicXmlParameters["networkdetails"]=xml;
+                     $.ajax({
+                          type: "GET",
+                          url: lineXmlPath,
+                          dataType: "xml",
+                          cache: false,
+                          success: function (xmlLine) {
+                            debugger
+                            dicXmlParameters["lines"]=xmlLine;
+                              $("#btnTest").show();
+                              }
+                             });
+                }
+            });
+              $("#btnTest").click(function () {
+            debugger
+            var $networkdetails = $(dicXmlParameters["networkdetails"]);
+                var $lineXml = $(dicXmlParameters["lines"]);
+                getNetworkXmlValues($networkdetails, $lineXml);
+            });
+        });
+        
+    </script>
+    <input id="btnTest" type="button" value="Test" />
+</head>
+<body>
+</body>
+</html>
